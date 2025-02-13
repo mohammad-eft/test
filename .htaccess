@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /router_MVC/
+RewriteRule ^index\\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /router_MVC/index.php [L]
