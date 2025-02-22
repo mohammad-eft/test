@@ -152,6 +152,55 @@ interface routerInterface{}
 // }
 
 
+// class router implements routerInterface{
+//     public static function isUserLoggedIn(){
+//         if (isset($_COOKIE['token'])) {
+//             return true;
+//         } else{
+//             return false;
+//         }
+//     }
+//     public static function post(string $address, array $requestArr, array $post = null){
+//         foreach(routerList :: publicRoutes($post) as $key => $value){
+//             if ($address == $key) {
+//                 container :: bind($value[0] , $value[0]);
+//                 $controller = container :: singleton($value[0]);
+//                 $method = $value[1];
+//                 if (count($value) == 2) {
+//                     $controller -> $method();
+//                     return;
+//                 }
+//                 if (count($value) == 3) {
+//                     $controller -> $method($value[2]);
+//                     return;
+//                 }
+//             } 
+//         }
+//         if (self :: isUserLoggedIn()) {
+//             foreach(routerList :: privateRoutes($requestArr, $post) as $key => $value){
+//                 if ($address == $key) {
+//                     $method = $value[1];
+//                     container :: bind($value[0], $value[0]);
+//                     $controller = container :: singleton($value[0]);
+//                     if (count($value) == 2) {
+//                         $controller -> $method();
+//                     }
+//                     if (count($value) == 3) {
+//                         $controller -> $method($value[2]);
+//                     }
+//                 } 
+//             }
+//         } else {
+//             container :: bind(userController :: class, userController :: class);
+//             $controller = container :: singleton(userController :: class);
+//             $controller -> login();
+//             return;
+//         }
+//     }
+// }
+
+
+
 class router implements routerInterface{
     public static function isUserLoggedIn(){
         if (isset($_COOKIE['token'])) {
@@ -161,7 +210,10 @@ class router implements routerInterface{
         }
     }
     public static function post(string $address, array $requestArr, array $post = null){
-        foreach(middleware :: publicRoutes($post) as $key => $value){
+        foreach(routerList :: publicRoutes($post) as $key => $value){
+            $bool = str_contains($key, "{");
+            echo $bool;
+            
             if ($address == $key) {
                 container :: bind($value[0] , $value[0]);
                 $controller = container :: singleton($value[0]);
@@ -177,7 +229,7 @@ class router implements routerInterface{
             } 
         }
         if (self :: isUserLoggedIn()) {
-            foreach(middleware :: privateRoutes($requestArr, $post) as $key => $value){
+            foreach(routerList :: privateRoutes($requestArr, $post) as $key => $value){
                 if ($address == $key) {
                     $method = $value[1];
                     container :: bind($value[0], $value[0]);
@@ -189,6 +241,26 @@ class router implements routerInterface{
                         $controller -> $method($value[2]);
                     }
                 } 
+                $bool = str_contains($key, "{");
+                if($bool){
+                    $singleRouteArray = explode('/', $key);
+                    foreach($singleRouteArray as $index => $array){
+                        $c = str_contains($array , "{");
+                        if($c){
+                            $x = $index;
+                            $start = strpos($key, "{");
+                            $end = strpos($key, "}");
+                            $param = substr($key, $start + 1, - 1)."</br>";
+                            if(isset($requestArr[$x])){
+                                $routParams = [$param => $requestArr[$x]];
+                            }
+                            print_r($value);
+                            echo "</br>";
+                        }
+
+                    }
+                }
+            
             }
         } else {
             container :: bind(userController :: class, userController :: class);

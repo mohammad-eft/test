@@ -14,5 +14,3 @@ foreach ($arr as $key => $value) {
     // $x = 25;
     echo $x;
 }
-
-
