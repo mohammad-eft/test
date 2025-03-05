@@ -188,6 +188,6 @@ class app implements appInterface{
     public static function sendData(){
         $requestObj = self :: makeRequest();
         $routerObj = self :: makeRouter();
-        $routerObj -> post($requestObj -> request(), $requestObj -> getUriArr(), $requestObj -> post());
+        $routerObj -> getData($requestObj -> request(), $requestObj -> getUriArr(), $requestObj -> post());
     }
 }
