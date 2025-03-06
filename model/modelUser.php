@@ -1,6 +1,6 @@
 <?php
 
-// include("mainDB.php");
+
 
 class modelUser extends mainDB{
     public $table = "users";
