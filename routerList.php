@@ -101,7 +101,7 @@ class routerList implements routerListInterface{
     //         '/router_MVC/view/user/userForm' => ['userController', 'userForm']
     //     );
     // }
-    public static function routes(string $data, array $post){
+    public static function routes(){
         // echo "----------------------------😁😁";
         // echo "</br>";
         // echo "</br>";
@@ -112,13 +112,27 @@ class routerList implements routerListInterface{
         // echo "----------------------------😊😊";
         // echo "</br>";
         return array(
-            '/router_MVC/view/user/viewUser' => ['userController', 'viewUser'],
-            '/router_MVC/view/user/create' => ['userController', 'insert'], // $post
+            // '/router_MVC/home' => ['userController', 'viewUser'],
+            // '/router_MVC/view/user/viewUser' => ['userController', 'viewUser'],
+            // '/router_MVC/view/user/create' => ['userController', 'insert'], // $post
+
             '/router_MVC/view/user/editUserForm/{id}' => ['userController', 'editUserForm'],
-            '/router_MVC/view/user/userForm' => ['userController', 'userForm'],
-            '/router_MVC/view/user/updateUserForm' => ['userController', 'update'], //  $post
+            '/router_MVC/view/user/editUserForm/mmd' => ['userController', 'editUserForm'],
+            '/router_MVC/view/{id}/editUserForm/mmd' => ['userController', 'editUserForm',"mohammad"],
+
+            // '/router_MVC/view/user/userForm' => ['userController', 'userForm'],
+            // '/router_MVC/view/user/updateUserForm' => ['userController', 'update'], //  $post
+
+
             '/router_MVC/view/user/deleteUser/{id}' => ['userController', 'delete'], // $data
-            '/router_MVC/view/user/profile/{id}' => ['userController', 'profile'] // $data
+
+            // /router_MVC/view/user/deleteUser/77
+
+            '/router_MVC/view/user/{id}/deleteUser/{d-id}' => ['userController', 'delete'], // $data
+
+            '/router_MVC/view/user/profile/{id}' => ['userController', 'profile'], // $data
+
+            // '/router_MVC/view/user/panel/profile/{id}' => ['userController', 'profile'], // $data
         );
     }
 }

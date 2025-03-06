@@ -353,7 +353,9 @@ class router implements routerInterface{
         return true;
     }
     public static function getData(string $address, array $requestArr, array $post = null){
-        analyze :: request($address, $requestArr, $post);
+        $f = analyze :: request($requestArr);
+        print_r($f);
+
     }
     public static function post(string $address, array $requestArr, array $post = null){
 
