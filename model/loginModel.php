@@ -1,6 +1,6 @@
 <?php
 
-// include "mainDb.php";
+
 
 class loginModel extends mainDB{
     public $table = "login";
