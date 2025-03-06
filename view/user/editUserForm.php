@@ -14,6 +14,7 @@
         <input type="text" name="name" value="<?php echo $value['name']; ?>" placeholder="enter your name ...">
         <input type="text" name="family" value="<?php echo $value['family']; ?>" placeholder="enter your family ...">
         <input type="text" name="age" value="<?php echo $value['age']; ?>" placeholder="enter your age ...">
+        <input type="text" name="userName" value="<?php echo $value['userName']; ?>" placeholder="enter your userName ...">
         <input type="password" name="password" value="<?php echo $value['password']; ?>" placeholder="enter your pass ...">
         <button type="submit">submit</button>
         <?php

@@ -345,56 +345,41 @@ interface routerInterface{}
 
 class router implements routerInterface{
     public static function isUserLoggedIn(){
-        // if (isset($_COOKIE['token'])) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-        return true;
+        if (isset($_COOKIE['token'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public static function getData(string $address, array $requestArr, array $post = null){
-        $f = analyze :: request($requestArr);
-        print_r($f);
-
+        $controller = analyze :: request($requestArr);
+        self :: post($controller, $post);
     }
-    public static function post(string $address, array $requestArr, array $post = null){
-
-
-
-        // foreach(routerList :: privateRoutes($requestArr ,$post) as $key => $value){
-        //     if ($address == $key) {
-        //         container :: bind($value[0] , $value[0]);
-        //         $controller = container :: singleton($value[0]);
-        //         $method = $value[1];
-        //         if (count($value) == 2) {
-        //             $controller -> $method();
-        //             return;
-        //         }
-        //         if (count($value) == 3) {
-        //             $controller -> $method($value[2]);
-        //             return;
-        //         }
-        //     } 
-        // }
-        // if (self :: isUserLoggedIn()) {
-        //     foreach(routerList :: privateRoutes($requestArr, $post) as $key => $value){
-        //         if ($address == $key) {
-        //             $method = $value[1];
-        //             container :: bind($value[0], $value[0]);
-        //             $controller = container :: singleton($value[0]);
-        //             if (count($value) == 2) {
-        //                 $controller -> $method();
-        //             }
-        //             if (count($value) == 3) {
-        //                 $controller -> $method($value[2]);
-        //             }
-        //         } 
-        //     }
-        // } else {
-        //     container :: bind(userController :: class, userController :: class);
-        //     $controller = container :: singleton(userController :: class);
-        //     $controller -> login();
-        //     return;
-        // }
+    public static function post(array $control, array $post = null){
+        if (self :: isUserLoggedIn()) {
+            container :: bind($control[0][0], $control[0][0]);
+            $controller = container :: singleton($control[0][0]);
+            $method = $control[0][1];
+            if (count($control) == 1) {
+                $controller -> $method();
+            }
+            if (count($control) == 2) {
+                if(isset($control[1]["id"])){
+                    $controller -> $method($control[1]["id"]);
+                } 
+                else {
+                    if (count($control[0]) == 3) {
+                        $controller -> $method($post);
+                    } else {
+                        $controller -> $method();
+                    }
+                }
+            }
+        } else {
+            container :: bind(userController :: class, userController :: class);
+            $controller = container :: singleton(userController :: class);
+            $controller -> login();
+            return;
+        }
     }
 }

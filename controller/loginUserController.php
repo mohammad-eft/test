@@ -75,6 +75,7 @@ class loginUserController implements loginUserControllerInterface{
         foreach($all as $data){
             if ($data['token'] == $token) { 
                 $bool = true;
+                self :: insert($data);
                 ?>
                 <h1 style="text-align: center; color: green;">
                     login successed!
